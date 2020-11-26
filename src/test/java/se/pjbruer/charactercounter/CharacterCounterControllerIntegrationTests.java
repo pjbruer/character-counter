@@ -46,6 +46,5 @@ public class CharacterCounterControllerIntegrationTests {
         ResponseEntity<CharacterCounterResponse> result = characterCounterController.findWords(text, character);
 
         assertEquals(3, Objects.requireNonNull(result.getBody()).getResult());
-
     }
 }

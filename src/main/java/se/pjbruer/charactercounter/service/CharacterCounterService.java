@@ -19,7 +19,7 @@ public class CharacterCounterService {
         return new CharacterCounterResponse(findAmountOfWordsThatBeginWithCharacter(body.text, body.character));
     }
 
-    private Integer findAmountOfWordsThatBeginWithCharacter(String text, Character character){
+    public Integer findAmountOfWordsThatBeginWithCharacter(String text, Character character){
         List<Integer> amountOfWords = new ArrayList<>();
 
         int index = text.indexOf(character);
