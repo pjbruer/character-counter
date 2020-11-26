@@ -29,13 +29,15 @@ public class CharacterCounterControllerIntegrationTests {
     @Autowired
     private CharacterCounterService counterService;
 
+    // HAPPY CASES
+
     @Test
-    void shouldAcceptParamsAndReturnResult() throws Exception {
-        String text = "Hell";
-        Character character = 'o';
+    void shouldAcceptParamsAndReturnResultAndHttp200() throws Exception {
+        String text = "abba rosor apa sms aha bob";
+        Character character = 'a';
 
         RequestBuilder request = MockMvcRequestBuilders
-                .post("/api/findCharacterInText")
+                .post("/api/findWordsParams")
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("text", text)
                 .param("character", String.valueOf(character));
@@ -45,7 +47,95 @@ public class CharacterCounterControllerIntegrationTests {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        assertEquals("{\"result\":\"Hello\"}", result.getResponse().getContentAsString());
+        assertEquals("{\"result\":3}", result.getResponse().getContentAsString());
+    }
 
+    @Test
+    void shouldAcceptBodyAndReturnResultAndHttp200() throws Exception {
+        String json = "{\"text\":\"abba rosor apa sms aha bob\", \"character\":\"a\"}";
+        RequestBuilder request = MockMvcRequestBuilders
+                .post("/api/findWordsBody")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json);
+
+        MvcResult result = mvc.perform(request)
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+
+        assertEquals("{\"result\":3}", result.getResponse().getContentAsString());
+    }
+
+    // SAD CASES
+
+    @Test
+    void shouldNotAcceptParamsAndReturnHttp400() throws Exception {
+        String text = "abba rosor apa sms aha bob";
+        Character character = 'a';
+
+        RequestBuilder request = MockMvcRequestBuilders
+                .post("/api/findWordsParams")
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("text", text)
+                .param("wrongParam", String.valueOf(character));
+
+        MvcResult result = mvc.perform(request)
+                .andDo(print())
+                .andExpect(status().is4xxClientError())
+                .andReturn();
+
+        assertEquals(400, result.getResponse().getStatus());
+    }
+
+    @Test
+    void shouldNotAcceptBodyAndReturnHttp400() throws Exception {
+        String brokenJson = "\"text\":\"abba rosor apa sms aha bob\", \"character\":\"a\"}";
+
+        RequestBuilder request = MockMvcRequestBuilders
+                .post("/api/findWordsBody")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(brokenJson);
+
+        MvcResult result = mvc.perform(request)
+                .andDo(print())
+                .andExpect(status().is4xxClientError())
+                .andReturn();
+
+        assertEquals(400, result.getResponse().getStatus());
+    }
+
+    @Test
+    void shouldNotAcceptParamPathAndReturnHttp404() throws Exception {
+        String text = "abba rosor apa sms aha bob";
+        Character character = 'a';
+
+        RequestBuilder request = MockMvcRequestBuilders
+                .post("/api/notRightPath")
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("text", text)
+                .param("character", String.valueOf(character));
+
+        MvcResult result = mvc.perform(request)
+                .andDo(print())
+                .andExpect(status().is4xxClientError())
+                .andReturn();
+
+        assertEquals(404, result.getResponse().getStatus());
+    }
+
+    @Test
+    void shouldNotAcceptBodyPathAndReturnHttp404() throws Exception {
+        String json = "{\"text\":\"abba rosor apa sms aha bob\", \"character\":\"a\"}";
+        RequestBuilder request = MockMvcRequestBuilders
+                .post("/api/notRightPath")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json);
+
+        MvcResult result = mvc.perform(request)
+                .andDo(print())
+                .andExpect(status().is4xxClientError())
+                .andReturn();
+
+        assertEquals(404, result.getResponse().getStatus());
     }
 }
