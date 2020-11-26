@@ -1,4 +1,7 @@
 ## A simple REST api to find and count words that all share their first character.
+#### Prerequisites
+- Maven
+
 ```
 git clone https://github.com/pjbruer/character-counter.git
 
