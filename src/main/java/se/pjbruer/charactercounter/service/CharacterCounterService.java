@@ -1,7 +1,7 @@
 package se.pjbruer.charactercounter.service;
 
 import org.springframework.stereotype.Service;
-import se.pjbruer.charactercounter.model.CharacterCounter;
+import se.pjbruer.charactercounter.model.CharacterCounterRequest;
 import se.pjbruer.charactercounter.model.CharacterCounterResponse;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ public class CharacterCounterService {
         return new CharacterCounterResponse(findAmountOfWordsThatBeginWithCharacter(text, character));
     }
 
-    public CharacterCounterResponse findWords(CharacterCounter body) {
+    public CharacterCounterResponse findWords(CharacterCounterRequest body) {
 
         return new CharacterCounterResponse(findAmountOfWordsThatBeginWithCharacter(body.text, body.character));
     }

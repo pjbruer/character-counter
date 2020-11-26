@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import se.pjbruer.charactercounter.model.CharacterCounterRequest;
 import se.pjbruer.charactercounter.model.CharacterCounterResponse;
 import se.pjbruer.charactercounter.service.CharacterCounterService;
-import se.pjbruer.charactercounter.util.Converter;
 
 @RestController
 @RequestMapping("/api")
@@ -30,7 +29,7 @@ public class CharacterCounterController {
     @PostMapping("/findWordsBody")
     @ResponseBody
     public ResponseEntity<CharacterCounterResponse> findWords(@RequestBody CharacterCounterRequest body){
-        CharacterCounterResponse result = counterService.findWords(Converter.toCharacterCounterFromCharacterCounterRequest(body));
+        CharacterCounterResponse result = counterService.findWords(body.text, body.character);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
