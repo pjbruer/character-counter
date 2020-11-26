@@ -21,15 +21,15 @@ public class CharacterCounterController {
 
     @PostMapping("/findWordsParams")
     @ResponseBody
-    public ResponseEntity<CharacterCounterResponse> findWords(@RequestParam String text, @RequestParam Character character){
-        CharacterCounterResponse result = counterService.findWords(text, character);
+    public ResponseEntity<CharacterCounterResponse> findWordsParams(@RequestParam String text, @RequestParam Character character){
+        CharacterCounterResponse result = counterService.findWordsParams(text, character);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PostMapping("/findWordsBody")
     @ResponseBody
-    public ResponseEntity<CharacterCounterResponse> findWords(@RequestBody CharacterCounterRequest body){
-        CharacterCounterResponse result = counterService.findWords(body.text, body.character);
+    public ResponseEntity<CharacterCounterResponse> findWordsBody(@RequestBody CharacterCounterRequest body){
+        CharacterCounterResponse result = counterService.findWordsBody(body);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

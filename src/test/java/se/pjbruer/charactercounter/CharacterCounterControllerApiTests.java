@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ApiTests {
+public class CharacterCounterControllerApiTests {
 
     @Autowired
     private MockMvc mvc;
@@ -88,7 +88,7 @@ public class ApiTests {
     }
 
     @Test
-    void shouldNotAcceptBodyAndReturnHttp400() throws Exception {
+    void shouldNotAcceptBrokenJsonAndReturnHttp400() throws Exception {
         String brokenJson = "\"text\":\"abba rosor apa sms aha bob\", \"character\":\"a\"}";
 
         RequestBuilder request = MockMvcRequestBuilders

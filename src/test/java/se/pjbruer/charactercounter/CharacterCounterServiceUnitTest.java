@@ -26,7 +26,7 @@ public class CharacterCounterServiceUnitTest {
         String text = "abba rosor apa sms aha bob";
         Character character = 'a';
 
-        CharacterCounterResponse result = characterCounterService.findWords(text, character);
+        CharacterCounterResponse result = characterCounterService.findWordsParams(text, character);
 
         Assert.assertSame(result.getClass(), CharacterCounterResponse.class);
     }
@@ -35,7 +35,7 @@ public class CharacterCounterServiceUnitTest {
     public void shouldFindWordsAndReturnCharacterCounterResponseClassBody(){
         CharacterCounterRequest body = new CharacterCounterRequest("abba rosor apa sms aha bob", 'a');
 
-        CharacterCounterResponse result = characterCounterService.findWords(body.text, body.character);
+        CharacterCounterResponse result = characterCounterService.findWordsBody(body);
 
         Assert.assertSame(result.getClass(), CharacterCounterResponse.class);
     }

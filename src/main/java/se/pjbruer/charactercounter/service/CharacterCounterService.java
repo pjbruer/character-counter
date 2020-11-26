@@ -9,12 +9,12 @@ import java.util.List;
 
 @Service
 public class CharacterCounterService {
-    public CharacterCounterResponse findWords(String text, Character character) {
+    public CharacterCounterResponse findWordsParams(String text, Character character) {
 
         return new CharacterCounterResponse(findAmountOfWordsThatBeginWithCharacter(text, character));
     }
 
-    public CharacterCounterResponse findWords(CharacterCounterRequest body) {
+    public CharacterCounterResponse findWordsBody(CharacterCounterRequest body) {
 
         return new CharacterCounterResponse(findAmountOfWordsThatBeginWithCharacter(body.text, body.character));
     }
