@@ -7,11 +7,11 @@ git clone https://github.com/pjbruer/character-counter.git
 
 cd character-counter/
 
-mvn clean install
+./mvnw mvn clean install
 
-mvn test
+./mvnw mvn test
 
-mvn spring-boot:run
+./mvnw spring-boot:run
 ```
 
 ### Endpoints available

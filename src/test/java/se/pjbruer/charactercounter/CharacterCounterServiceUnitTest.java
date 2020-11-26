@@ -13,12 +13,12 @@ public class CharacterCounterServiceUnitTest {
     CharacterCounterService characterCounterService = new CharacterCounterService();
 
     @Test
-    public void shouldfindAmountOfWordsThatBeginWithCharacter(){
-        String text = "abba rosor apa sms aha bob";
+    public void shouldFindWordsThatStartBeginCharacter(){
+        String text = "besk rosor apa sms aha bob";
         Character character = 'a';
 
-        int result = characterCounterService.findAmountOfWordsThatBeginWithCharacter(text, character);
-        assertEquals(result, 3);
+        int result = characterCounterService.findWordsThatStartBeginCharacter(text, character);
+        assertEquals(result, 2);
     }
 
     @Test
