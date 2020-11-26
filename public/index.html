@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>character-counter</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+    <form id="frm1" action="api/findWordsParams" method="post">
+        Text<br><input type="text" name="text"><br>
+        Character<br><input type="text" name="character"><br>
+        <input type="button" onclick="UserActionSubmit()" value="Submit">
+        <input type="button" onclick="UserActionReset()" value="Reset">
+    </form>
+    <script>
+        function UserActionSubmit() {
+            document.getElementById("frm1").submit();
+            var x = document.getElementById("btn1").form.id;
+            document.getElementById("demo").innerHTML = x;
+        }
+    </script>
+    <script>
+        function UserActionReset() {
+        document.getElementById("frm1").reset();
+        }
+    </script>
+</body>
+</html>
