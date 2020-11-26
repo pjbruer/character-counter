@@ -1,6 +1,7 @@
 package se.pjbruer.charactercounter.service;
 
 import org.springframework.stereotype.Service;
+import se.pjbruer.charactercounter.model.CharacterCounter;
 import se.pjbruer.charactercounter.model.CharacterCounterResponse;
 
 import java.util.ArrayList;
@@ -10,8 +11,12 @@ import java.util.List;
 public class CharacterCounterService {
     public CharacterCounterResponse findWords(String text, Character character) {
 
-        return new CharacterCounterResponse(
-                findAmountOfWordsThatBeginWithCharacter(text, character));
+        return new CharacterCounterResponse(findAmountOfWordsThatBeginWithCharacter(text, character));
+    }
+
+    public CharacterCounterResponse findWords(CharacterCounter body) {
+
+        return new CharacterCounterResponse(findAmountOfWordsThatBeginWithCharacter(body.text, body.character));
     }
 
     private Integer findAmountOfWordsThatBeginWithCharacter(String text, Character character){
@@ -25,7 +30,6 @@ public class CharacterCounterService {
         return amountOfWords.size();
     }
 
-    // My own solution
     /*private List<Character> findWordsThatStartWithCharacter(String text, Character character){
         List<String> wordsFromText = Arrays.asList(text.split(" "));
         List<Character> amountOfWordsStartingWithCharacter = new ArrayList<>();
