@@ -23,7 +23,7 @@ public class CharacterCounterService {
     // TODO - Insecure deserialization often leads to remote code execution
 
     public Integer findWordsInTextThatBeginWithCharacter(String text, Character character){
-        List<String> wordsFromText = splitTextIntoWords(text.toLowerCase());
+        List<String> wordsFromText = splitTextIntoWords(text.toUpperCase());
         List<Character> amountOfWordsStartingWithCharacter = new ArrayList<>();
 
         for (String word:wordsFromText) {
@@ -39,7 +39,7 @@ public class CharacterCounterService {
     }
 
     public boolean comparison(String word, Character character) {
-        return word.charAt(0) == Character.toLowerCase(character);
+        return Character.valueOf(word.charAt(0)).equals(Character.toUpperCase(character));
     }
 
     /*public Integer findAmountOfWordsThatBeginWithCharacter(String text, Character character){
