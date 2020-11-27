@@ -10,33 +10,44 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CharacterCounterServiceUnitTest {
 
-    CharacterCounterService characterCounterService = new CharacterCounterService();
+    CharacterCounterService characterCounterService;
+
+    Character upperCaseCharacter = 'A';
+    Character lowerCaseCharacter = 'a';
+    String text = "well Cross-Site Scripting XSS allows attackers to execute scripts in the victim’s browser which " +
+                    "can hijack user sessions, deface web sites, or redirect the user to malicious sites";
+
+    public CharacterCounterServiceUnitTest() {this.characterCounterService = new CharacterCounterService();}
 
     @Test
-    public void shouldFindWordsThatStartBeginCharacter(){
-        String text = "besk rosor apa sms aha bob";
-        Character character = 'a';
+    public void shouldFindWordsThatStartBeginCharacterLowerCase(){
+        int result = characterCounterService.findWordsInTextThatBeginWithCharacter(text, lowerCaseCharacter);
 
-        int result = characterCounterService.findWordsThatStartBeginCharacter(text, character);
+        assertEquals(result, 2);
+    }
+
+    @Test
+    public void shouldFindWordsThatStartBeginCharacterUpperCase(){
+        int result = characterCounterService.findWordsInTextThatBeginWithCharacter(text, upperCaseCharacter);
+
         assertEquals(result, 2);
     }
 
     @Test
     public void shouldFindWordsAndReturnCharacterCounterResponseClassParams(){
-        String text = "abba rosor apa sms aha bob";
-        Character character = 'a';
-
-        CharacterCounterResponse result = characterCounterService.findWordsParams(text, character);
+        CharacterCounterResponse result = characterCounterService.findWordsParams(text, lowerCaseCharacter);
 
         Assert.assertSame(result.getClass(), CharacterCounterResponse.class);
+        assertEquals(result.getResult(), 2);
+
     }
 
     @Test
     public void shouldFindWordsAndReturnCharacterCounterResponseClassBody(){
-        CharacterCounterRequest body = new CharacterCounterRequest("abba rosor apa sms aha bob", 'a');
-
-        CharacterCounterResponse result = characterCounterService.findWordsBody(body);
+        CharacterCounterResponse result = characterCounterService.findWordsBody(new CharacterCounterRequest(text, lowerCaseCharacter));
 
         Assert.assertSame(result.getClass(), CharacterCounterResponse.class);
+        assertEquals(result.getResult(), 2);
+
     }
 }

@@ -12,30 +12,27 @@ import java.util.List;
 public class CharacterCounterService {
     public CharacterCounterResponse findWordsParams(String text, Character character) {
 
-        return new CharacterCounterResponse(findWordsThatStartBeginCharacter(text, character));
+        return new CharacterCounterResponse(findWordsInTextThatBeginWithCharacter(text, character));
     }
 
     public CharacterCounterResponse findWordsBody(CharacterCounterRequest body) {
 
-        return new CharacterCounterResponse(findWordsThatStartBeginCharacter(body.text, body.character));
+        return new CharacterCounterResponse(findWordsInTextThatBeginWithCharacter(body.text, body.character));
     }
 
+    // TODO - Insecure deserialization often leads to remote code execution
 
-    // TODO - esa rosor apa sms aha bob, on esa(or often first word) the method failes and counts as valid, why?
-    // TODO - utilize toLowerCase() and objectMapper
-
-    public Integer findWordsThatStartBeginCharacter(String text, Character character){
-        List<String> wordsFromText = Arrays.asList(text.split(" "));
+    public Integer findWordsInTextThatBeginWithCharacter(String text, Character character){
+        List<String> wordsFromText = Arrays.asList(text.toLowerCase().split(" "));
         List<Character> amountOfWordsStartingWithCharacter = new ArrayList<>();
 
-        int match = 1;
+        int result = 1;
         for (String word:wordsFromText) {
-            match = Character.compare(word.charAt(0), character);
-            if (match == 0) amountOfWordsStartingWithCharacter.add(word.charAt(0));
+            result = Character.compare(word.charAt(0), Character.toLowerCase(character));
+            if (result == 0) amountOfWordsStartingWithCharacter.add(word.charAt(0));
         }
         return amountOfWordsStartingWithCharacter.size();
     }
-
 
     /*public Integer findAmountOfWordsThatBeginWithCharacter(String text, Character character){
         List<Integer> amountOfWords = new ArrayList<>();
