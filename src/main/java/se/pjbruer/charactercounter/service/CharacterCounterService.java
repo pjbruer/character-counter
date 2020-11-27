@@ -23,15 +23,23 @@ public class CharacterCounterService {
     // TODO - Insecure deserialization often leads to remote code execution
 
     public Integer findWordsInTextThatBeginWithCharacter(String text, Character character){
-        List<String> wordsFromText = Arrays.asList(text.toLowerCase().split(" "));
+        List<String> wordsFromText = splitTextIntoWords(text.toLowerCase());
         List<Character> amountOfWordsStartingWithCharacter = new ArrayList<>();
 
-        int result = 1;
         for (String word:wordsFromText) {
-            result = Character.compare(word.charAt(0), Character.toLowerCase(character));
-            if (result == 0) amountOfWordsStartingWithCharacter.add(word.charAt(0));
+            if (comparison(word, character)) {
+                amountOfWordsStartingWithCharacter.add(word.charAt(0));
+            }
         }
         return amountOfWordsStartingWithCharacter.size();
+    }
+
+    public List<String> splitTextIntoWords(String text) {
+        return Arrays.asList(text.split(" "));
+    }
+
+    public boolean comparison(String word, Character character) {
+        return word.charAt(0) == Character.toLowerCase(character);
     }
 
     /*public Integer findAmountOfWordsThatBeginWithCharacter(String text, Character character){
