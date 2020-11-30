@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import se.pjbruer.charactercounter.model.CharacterCounterRequest;
 import se.pjbruer.charactercounter.model.CharacterCounterResponse;
 import se.pjbruer.charactercounter.service.CharacterCounterService;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api")
@@ -28,7 +31,7 @@ public class CharacterCounterController {
 
     @PostMapping("/findWordsBody")
     @ResponseBody
-    public ResponseEntity<CharacterCounterResponse> findWordsBody(@RequestBody CharacterCounterRequest body){
+    public ResponseEntity<CharacterCounterResponse> findWordsBody(@Valid @RequestBody CharacterCounterRequest body){
         CharacterCounterResponse result = counterService.findWordsBody(body);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

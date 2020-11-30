@@ -2,18 +2,17 @@ package se.pjbruer.charactercounter.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class CharacterCounterRequest {
 
-    @NotEmpty
-    @Size(min=1, message="Text should have at least 1 letter")
+    @NotEmpty()
+    @Length(min = 1)
     public final String text;
 
-    @NotEmpty
-    @Size(min = 1, max = 1, message="Character should only have 1 character")
+    @NotNull
     public final Character character;
 
     @JsonCreator
